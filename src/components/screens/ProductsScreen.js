@@ -38,55 +38,69 @@ function ProductsScreen({ params }) {
         ) : (
           <Row>
             <Col md={4}>
-              <Image src={product.image} alt={product.product_name} fluid style={{maxWidth: '300px', height: '300px', objectFit: 'contain'}} />
+              <Image
+                src={product.image}
+                alt={product.product_name}
+                fluid
+                style={{
+                  maxWidth: "300px",
+                  height: "300px",
+                  objectFit: "contain",
+                }}
+              />
             </Col>
             <Col md={5}>
-            <ListGroup variant="flush">
-              <ListGroup.Item>
-                <h3>{product.product_name}</h3>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Rating
-                  value={product.rating}
-                  text={`${product.num_reviews} reviews`}
-                />
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <strong>Brand: {product.product_brand}</strong>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <strong>Description: {product.product_info}</strong>
-              </ListGroup.Item>
-            </ListGroup>
-          </Col>
-          <Col md={3}>
-            <Card>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <Row>
-                    <Col>Price:</Col>
-                    <Col>
-                      <strong>{product.price}</strong>
-                    </Col>
-                  </Row>
+                  <h3>{product.product_name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Row>
-                    <Col>Status:</Col>
-                    <Col>
-                      {product.stock_count > 0 ? "In Stock" : "Out of Stock"}
-                    </Col>
-                  </Row>
+                  <Rating
+                    value={product.rating}
+                    text={`${product.num_reviews} reviews`}
+                  />
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Button className="btn-block btn-success" disabled={product.stock_count === 0} type="button">
-                    Add to Cart
-                  </Button>
+                  <strong>Brand: {product.product_brand}</strong>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <strong>Description: {product.product_info}</strong>
                 </ListGroup.Item>
               </ListGroup>
-            </Card>
-          </Col>
-        </Row>)}
+            </Col>
+            <Col md={3}>
+              <Card>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Price:</Col>
+                      <Col>
+                        <strong>{product.price}</strong>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Status:</Col>
+                      <Col>
+                        {product.stock_count > 0 ? "In Stock" : "Out of Stock"}
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Button
+                      className="btn-block btn-success"
+                      disabled={product.stock_count === 0}
+                      type="button"
+                    >
+                      Add to Cart
+                    </Button>
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
+            </Col>
+          </Row>
+        )}
       </div>
     </Container>
   );

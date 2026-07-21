@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function CartScreen() {
-  return (
-    <div>
-      cart
-    </div>
-  )
+  return <div>cart</div>;
 }
 
-export default CartScreen
+export default CartScreen;
