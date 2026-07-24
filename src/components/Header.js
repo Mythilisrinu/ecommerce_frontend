@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"; // Use useHistory if using react-router-dom v5
 import { logout } from "../actions/userActions";
 
 function Header() {
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  const dispatch = useDispatch();
+
   const logoutHandler = () => {
     dispatch(logout());
   };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (keyword.trim()) {
+      navigate(`/?search=${encodeURIComponent(keyword.trim())}`);
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
@@ -74,17 +89,17 @@ function Header() {
                 </li>
               )}
             </ul>
-            <form className="d-flex">
+
+            {/* SEARCH FORM */}
+            <form onSubmit={submitHandler} className="d-flex">
               <input
                 className="form-control me-sm-2"
                 type="search"
                 placeholder="Search"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
               />
-              <button
-                className="btn btn-secondary my-2 my-sm-0"
-                type="submit"
-                fdprocessedid="kzy4nl"
-              >
+              <button className="btn btn-secondary my-2 my-sm-0" type="submit">
                 Search
               </button>
             </form>
@@ -94,4 +109,5 @@ function Header() {
     </>
   );
 }
+
 export default Header;
