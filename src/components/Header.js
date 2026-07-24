@@ -13,7 +13,7 @@ function Header() {
   };
   return (
     <>
-      <Navbar className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+      <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
         <div className="container-fluid">
           <LinkContainer to="/">
             <Nav.Link className="navbar-brand">Ecommerce Cart </Nav.Link>

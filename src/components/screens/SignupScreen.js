@@ -18,6 +18,7 @@ function SignupScreen() {
   const [showPass1, setShowPass1] = useState(false);
   const [showPass2, setShowPass2] = useState(false);
   const [errorMsg, setError] = useState("");
+  const [info, setInfo] = useState("");
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -27,7 +28,8 @@ function SignupScreen() {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/");
+      // navigate("/");
+      setInfo(userInfo.details);
     }
   }, [userInfo, redirect]);
 
@@ -40,7 +42,7 @@ function SignupScreen() {
       setError("Password Criteria does not match");
     } else {
       dispatch(signup(fname, lname, email, pass1));
-      navigate("/login");
+      // navigate("/login");
     }
   };
   return (
@@ -141,10 +143,14 @@ function SignupScreen() {
           <Col md={4} className="m-auto">
             {error && <Message variant="danger">{error}</Message>}
             {errorMsg && <Message variant="danger">{errorMsg}</Message>}
-            <Message varient="warning">
-              Password must be at least 8 characters long and contain at least
-              one uppercase letter, one digit, and one special character.
-            </Message>
+            {info ? (
+              <Message variant="success">{info}</Message>
+            ) : (
+              <Message variant="primary">
+                Password must be at least 8 characters long and contain at least
+                one uppercase letter, one digit, and one special character.
+              </Message>
+            )}
           </Col>
         </Row>
       </Container>
