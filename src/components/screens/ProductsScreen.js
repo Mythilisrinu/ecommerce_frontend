@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../../actions/productsAction";
 import Loader from "../Loader";
 import Message from "../Message";
+import { addToCart } from "../../actions/cartActions";
 
 function ProductsScreen({ params }) {
   const dispatch = useDispatch();
@@ -24,12 +25,13 @@ function ProductsScreen({ params }) {
   const [qty, setQty] = useState(1);
   const navigate = useNavigate();
   const location = useLocation();
-
+  console.log("product", product);
   useEffect(() => {
     dispatch(listProductDetails(id));
   }, [dispatch, id]);
 
   const addToCartHandler = () => {
+    dispatch(addToCart(id, qty));
     navigate(`/cart/${id}?qty=${qty}`);
   };
 

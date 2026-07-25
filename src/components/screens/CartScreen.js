@@ -18,7 +18,7 @@ import {
 } from "react-bootstrap";
 import Loader from "../Loader";
 import Message from "../Message";
-import { addToCart, removeFromCart } from "../../actions/cartActions";
+import { getCart, addToCart, removeFromCart } from "../../actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 
 function CartScreen({ params }) {
@@ -32,12 +32,15 @@ function CartScreen({ params }) {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+  console.log("items", cartItems);
 
   useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, qty));
-    }
-  }, [dispatch, productId, qty]);
+    // if (!userInfo) {
+    //   navigate("/login");
+    //   return;
+    // }
+    dispatch(getCart());
+  }, [dispatch, navigate, productId, qty]);
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
@@ -63,45 +66,52 @@ function CartScreen({ params }) {
                     <Row>
                       <Col md={2}>
                         <Image
-                          src={item.image}
-                          alt={item.product_name}
+                          src={item.product.image}
+                          alt={item.product.product_name}
                           fluid
                           rounded
                         />
                       </Col>
                       <Col md={3} className="pt-4">
                         <Link
-                          to={`/product/${item.product}`}
+                          to={`/product/${item.product._id}`}
                           className="mt-auto"
                         >
-                          {item.product_name}
+                          {item.product.product_name}
                         </Link>
                       </Col>
                       <Col md={2} className="pt-4">
-                        ${item.price}
+                        ${item.product.price}
                       </Col>
                       <Col md={3} className="pt-4">
                         <Form.Control
                           as="select"
-                          value={item.qty}
+                          value={item.quantity}
                           onChange={(e) =>
                             dispatch(
-                              addToCart(item.product, Number(e.target.value)),
+                              addToCart(
+                                item.product._id,
+                                Number(e.target.value),
+                              ),
                             )
                           }
                         >
-                          {[...Array(item.stock_count).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
+                          {[...Array(item.product.stock_count).keys()].map(
+                            (x) => (
+                              <option key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            ),
+                          )}
                         </Form.Control>
                       </Col>
                       <Col md={1} className="pt-4">
                         <Button
                           type="button"
                           variant="light"
-                          onClick={() => removeFromCartHandler(item.product)}
+                          onClick={() =>
+                            removeFromCartHandler(item.product._id)
+                          }
                         >
                           Remove
                         </Button>

@@ -1,29 +1,71 @@
 import axios from "axios";
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
+import {
+  CART_GET_ITEMS,
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+} from "../constants/cartConstants";
 
-export const addToCart = (id, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/api/product/${id}`);
+export const getCart = () => async (dispatch, getState) => {
+  const {
+    userLogin: { userInfo },
+  } = getState();
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userInfo.access}`,
+    },
+  };
+
+  const { data } = await axios.get("/api/cart/", config);
+  console.log("cart data in action get", data);
+  dispatch({
+    type: CART_GET_ITEMS,
+    payload: data.items,
+  });
+};
+
+export const addToCart = (productId, qty) => async (dispatch, getState) => {
+  const {
+    userLogin: { userInfo },
+  } = getState();
+  console.log("user info", userInfo);
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${userInfo.access}`,
+    },
+  };
+
+  const { data } = await axios.post(
+    "/api/cart/add/",
+    {
+      product: productId,
+      quantity: qty,
+    },
+    config,
+  );
 
   dispatch({
     type: CART_ADD_ITEM,
-    payload: {
-      product: data._id,
-      product_name: data.product_name,
-      image: data.image,
-      price: data.price,
-      stock_count: data.stock_count,
-      qty,
-    },
+    payload: data.items,
   });
-
-  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
-export const removeFromCart = (id) => (dispatch, getState) => {
+export const removeFromCart = (productId) => async (dispatch, getState) => {
+  const {
+    userLogin: { userInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userInfo.access}`,
+    },
+  };
+
+  const { data } = await axios.delete(`/api/cart/remove/${productId}/`, config);
+
   dispatch({
     type: CART_REMOVE_ITEM,
-    payload: id,
+    payload: data.items,
   });
-
-  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };

@@ -15,6 +15,7 @@ function App() {
       <main className="app-content">
         <Routes>
           <Route path="/" element={<HomeScreen />} />
+          <Route path="/cart" element={<CartScreen />} />
           <Route path="/cart/:id" element={<CartScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
