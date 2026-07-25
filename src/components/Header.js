@@ -28,7 +28,7 @@ function Header() {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+      <Navbar bg="dark" variant="dark" expand="lg p-2" fixed="top">
         <div className="container-fluid">
           <LinkContainer to="/">
             <Nav.Link className="navbar-brand">Ecommerce Cart </Nav.Link>
@@ -71,7 +71,7 @@ function Header() {
                       New User ?
                     </Nav.Link>
                   </LinkContainer>
-                  <div className="dropdown-menu">
+                  <div className="dropdown-menu bg-dark">
                     <LinkContainer to="/login">
                       <Nav.Link className="dropdown-item">Login</Nav.Link>
                     </LinkContainer>

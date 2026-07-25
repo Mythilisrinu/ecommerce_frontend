@@ -69,13 +69,18 @@ function CartScreen({ params }) {
                           rounded
                         />
                       </Col>
-                      <Col md={3}>
-                        <Link to={`/product/${item.product}`}>
+                      <Col md={3} className="pt-4">
+                        <Link
+                          to={`/product/${item.product}`}
+                          className="mt-auto"
+                        >
                           {item.product_name}
                         </Link>
                       </Col>
-                      <Col md={2}>${item.price}</Col>
-                      <Col md={3}>
+                      <Col md={2} className="pt-4">
+                        ${item.price}
+                      </Col>
+                      <Col md={3} className="pt-4">
                         <Form.Control
                           as="select"
                           value={item.qty}
@@ -92,7 +97,7 @@ function CartScreen({ params }) {
                           ))}
                         </Form.Control>
                       </Col>
-                      <Col md={1}>
+                      <Col md={1} className="pt-4">
                         <Button
                           type="button"
                           variant="light"

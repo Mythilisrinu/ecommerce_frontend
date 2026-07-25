@@ -32,7 +32,7 @@ function LoginScreen() {
 
   return (
     <>
-      <Container>
+      <Container className="p-2">
         <Row>
           <Col md={4}></Col>
           <Col md={4}>

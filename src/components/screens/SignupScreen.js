@@ -47,7 +47,7 @@ function SignupScreen() {
   };
   return (
     <>
-      <Container>
+      <Container className="p-2">
         <Row>
           <Col md={4}></Col>
           <Col md={4}>
@@ -128,7 +128,7 @@ function SignupScreen() {
                       />
                     </InputGroup>
                   </Form.Group>
-                  <div className="d-grid mt-3">
+                  <div className="d-grid mt-2.5">
                     <Button
                       className="btn btn-md btn-success p-1.5"
                       type="submit"
